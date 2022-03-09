@@ -1,22 +1,23 @@
-document.addEventListener("DOMContentLoaded", onkoKirjautunut)
+<!DOCTYPE html>
+<html lang="fi">
 
+<head>
+    <meta charset="UTF-8" />
+    <title>demo8</title>
+    <script type="text/javascript" lang="javascript" src="Rekistiröinti.js"></script>
+</head>
 
-function onkoKirjautunut(){
-    document.getElementById("kirjaudu_ulos").style.display = "none";
-    if (localStorage.getItem("kirjautunut") === "kylla") {
-        document.getElementById("tervetuloa_teksti").textContent += " " + localStorage.getItem("nimi");
-        document.getElementById("kirjautumis_lomake").style.display = "none";
-        document.getElementById("kirjaudu_ulos").style.display = "initial";
-    
-    }
-}
+<body>
+    <p id="tervetuloa_teksti">Tervetuloa</p>
+    <form id="kirjautumis_lomake">
+        <input id="nimi" type="text" placeholder="Syötä nimesi" value="" required/>
+        <input id="salasana" type="password" placeholder="Syötä salsanasi" value="" required/>
+        <input id="kirjaudu_nappi" type="submit" value="Kirjaudu Sisään" onclick="kirjaudu()" required />
+    </form>
+    <p id="olemassa" style="display: none;">Käyttäjä jo käytössä</p>
+    <form id="kirjaudu_ulos">
+        <input id="kirjaudu_ulos" type="submit" value="Kirjaudu Ulos" onclick="ulos()" />
+    </form>
+</body>
 
-function kirjaudu() {
-    localStorage.setItem("nimi", document.getElementById("nimi").value)
-    localStorage.setItem("kirjautunut", "kylla")
-}
-
-function ulos() {
-   localStorage.clear();
-}
-
+</html>
