@@ -1,21 +1,40 @@
-<!DOCTYPE html>
-<html lang="fi">
+document.addEventListener("DOMContentLoaded", onkoKirjautunut)
 
-<head>
-    <meta charset="UTF-8" />
-    <title>demo8</title>
-    <script type="text/javascript" lang="javascript" src="kirjautuminen.js"></script>
-</head>
 
-<body>
-    <p id="tervetuloa_teksti">Tervetuloa</p>
-    <form id="kirjautumis_lomake">
-        <input id="nimi" type="text" placeholder="Syötä nimesi" value=""/>
-        <input id="kirjaudu_nappi" type="submit" value="Kirjaudu Sisään" onclick="kirjaudu()" />
-    </form>
-    <form id="kirjaudu_ulos">
-        <input id="kirjaudu_ulos" type="submit" value="Kirjaudu Ulos" onclick="ulos()" />
-    </form>
-</body>
+function onkoKirjautunut(){
+    document.getElementById("kirjaudu_ulos").style.display = "none";
 
-</html>
+    if (localStorage.getItem("kirjautunut") === "kylla") {
+        document.getElementById("tervetuloa_teksti").textContent += " " + localStorage.getItem("nimi");
+        document.getElementById("kirjautumis_lomake").style.display = "none";
+        document.getElementById("kirjaudu_ulos").style.display = "initial";
+    
+    }
+}
+
+function kirjaudu() {
+    if (document.getElementById("nimi").value === "" || document.getElementById("salasana").value === "") {
+        if (document.getElementById("nimi").value === "") {
+            localStorage.setItem("anna","nimi")
+            if (document.getElementById("salasana").value === "") {
+                localStorage.setItem("Anna", "salasana")
+            }
+        } else if (document.getElementById("salasana").value === "") {
+            localStorage.setItem("Anna", "salasana") 
+        } else {
+            localStorage.setItem("anna","nimi")
+            localStorage.setItem("Anna", "salasana")
+        }
+    } else if (localStorage.getItem("nimi") === document.getElementById("nimi").value && document.getElementById("nimi") != "") {
+        document.getElementById("olemassa").style.display = "initial";
+        
+    } else {
+        localStorage.setItem("nimi", document.getElementById("nimi").value)
+        localStorage.setItem("salasana", document.getElementById("salasana").value)
+        localStorage.setItem("kirjautunut", "kylla")
+    }
+}
+
+function ulos() {
+   localStorage.removeItem("kirjautunut");
+}
